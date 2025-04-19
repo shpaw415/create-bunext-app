@@ -40,7 +40,7 @@ async function GetOptionsFromUser(): Promise<Options> {
 function InstallBunext(options: Options) {
   const executeList = [
     `install ${createInstallList(options).join(" ")}`,
-    "@bunpmjs/bunext/bin/index.ts init",
+    "run @bunpmjs/bunext/bin/index.ts init",
   ];
   for (const cmd of executeList) execute(cmd);
 }
