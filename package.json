@@ -1,0 +1,21 @@
+{
+  "name": "create-bunext-app",
+  "version": "1.0.0",
+  "bin": {
+    "create-mon-app": "./index.ts"
+  },
+  "type": "module",
+  "description": "Create Bunext App",
+  "keywords": [
+    "create",
+    "scaffold",
+    "starter"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@inquirer/prompts": "7.4.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "4.1.4"
+  }
+}
