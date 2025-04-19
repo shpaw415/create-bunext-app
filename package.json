@@ -31,6 +31,6 @@
     "bun": ">=1.1.0"
   },
   "scripts": {
-    "prepare": "bun run build"
+    "prepare": "bun ./src/index.ts"
   }
 }
