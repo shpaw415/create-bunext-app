@@ -8,7 +8,12 @@ type Options = {
 };
 
 function execute(cmd: string, cwd: string) {
-  return Bun.$`bun ${cmd}`.cwd(cwd);
+  return Bun.spawnSync({
+    cmd: ["bun", ...cmd.split(" ")],
+    cwd,
+    stdout: "inherit",
+    stderr: "inherit",
+  });
 }
 
 function createInstallList(options: Options) {
@@ -33,7 +38,7 @@ async function GetOptionsFromUser(): Promise<Options> {
   };
 }
 
-async function InstallBunext(options: Options) {
+function InstallBunext(options: Options) {
   const executeList = [
     "init -y",
     `install ${createInstallList(options).join(" ")}`,
@@ -41,8 +46,8 @@ async function InstallBunext(options: Options) {
   ];
   const { name } = options;
 
-  for await (const cmd of executeList) {
-    await execute(cmd, name);
+  for (const cmd of executeList) {
+    execute(cmd, name);
   }
 }
 
@@ -51,7 +56,7 @@ async function Main() {
   mkdirSync(options.name, { recursive: true });
   console.log(`Creating project ${options.name}...`);
 
-  await InstallBunext(options);
+  InstallBunext(options);
 
   if (options.tailwind) {
     await Bun.file(`${options.name}/config/server.ts`).write(
