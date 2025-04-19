@@ -1,10 +1,17 @@
 {
   "name": "create-bunext-app",
-  "version": "1.0.0",
+  "version": "0.1.2",
   "bin": {
-    "create-bunext-app": "./index.ts"
+    "create-bunext-app": "./dist/index.js"
   },
-  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shpaw415/create-bunext-app.git"
+  },
+  "author": "shpaw415 <shpaw415@gmail.com>",
   "description": "Create Bunext App",
   "keywords": [
     "create",
@@ -13,9 +20,17 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@inquirer/prompts": "7.4.1"
+    "@inquirer/prompts": "7.4.1",
+    "@types/bun": "latest"
   },
   "devDependencies": {
     "tailwindcss": "4.1.4"
+  },
+  "engines": {
+    "bun": ">=1.1.0"
+  },
+  "scripts": {
+    "build": "bun build index.ts --outdir=dist --target=bun",
+    "postinstall": "bun ./src/index.ts"
   }
 }

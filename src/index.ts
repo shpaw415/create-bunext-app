@@ -1,6 +1,6 @@
 import { input, confirm } from "@inquirer/prompts";
 import { mkdirSync } from "node:fs";
-import { CreateServerConfig } from "./src/serverConfig";
+import { CreateServerConfig } from "./serverConfig";
 
 const name = await input({
   message: "Project Name?",
