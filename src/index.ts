@@ -33,10 +33,7 @@ async function GetOptionsFromUser(): Promise<Options> {
 }
 
 async function InstallBunext(options: Options) {
-  const executeList = [
-    `run install ${createInstallList(options).join(" ")}`,
-    "run init",
-  ];
+  const executeList = [`i ${createInstallList(options).join(" ")}`, "run init"];
   for (const cmd of executeList) await execute(cmd);
 }
 
