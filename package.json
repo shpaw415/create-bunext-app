@@ -31,6 +31,6 @@
     "bun": ">=1.1.0"
   },
   "scripts": {
-    "prepare": "bun create-bunext-app"
+    "prepare": "bun src/index.ts"
   }
 }
