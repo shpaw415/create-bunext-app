@@ -1,13 +1,22 @@
+#!/usr/bin/env bun
 import { input, confirm } from "@inquirer/prompts";
 import { CreateServerConfig } from "./serverConfig";
+import { mkdirSync } from "node:fs";
+import { normalize } from "../../bunext/features/utils/index";
+import { join } from "node:path";
 
 type Options = {
   name: string;
   tailwind: boolean;
 };
 
-function execute(cmd: string) {
-  return Bun.$`bun ${cmd}`;
+function execute(cmd: string, name: string) {
+  Bun.spawnSync({
+    cmd: ["bun", ...cmd.split(" ")],
+    stdout: "inherit",
+    stderr: "inherit",
+    cwd: normalize(join(process.cwd(), name)),
+  });
 }
 
 function createInstallList(options: Options) {
@@ -33,14 +42,17 @@ async function GetOptionsFromUser(): Promise<Options> {
 }
 
 async function InstallBunext(options: Options) {
-  const executeList = [`i ${createInstallList(options).join(" ")}`, "run init"];
-  for (const cmd of executeList) await execute(cmd);
+  const executeList = [
+    `install ${createInstallList(options).join(" ")}`,
+    "@bunpmjs/bunext/bin/index.ts init",
+  ];
+  for (const cmd of executeList) execute(cmd, options.name);
 }
 
 async function Main() {
   const options = await GetOptionsFromUser();
   console.log(`Creating project ${options.name}...`);
-
+  mkdirSync(options.name, { recursive: true });
   await InstallBunext(options);
 
   if (options.tailwind) {
@@ -50,4 +62,4 @@ async function Main() {
   }
 }
 
-await Main();
+Main();
