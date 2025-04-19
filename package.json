@@ -31,7 +31,7 @@
   },
   "scripts": {
     "prepare": "bun src/index.ts",
-    "install": "bun install",
+    "i": "bun install",
     "init": "bun @bunpmjs/bunext/bin/index.ts init"
   }
 }
