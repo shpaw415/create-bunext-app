@@ -1,5 +1,4 @@
 import { input, confirm } from "@inquirer/prompts";
-import { mkdirSync } from "node:fs";
 import { CreateServerConfig } from "./serverConfig";
 
 type Options = {
@@ -35,8 +34,8 @@ async function GetOptionsFromUser(): Promise<Options> {
 
 async function InstallBunext(options: Options) {
   const executeList = [
-    `install ${createInstallList(options).join(" ")}`,
-    "@bunpmjs/bunext/bin/index.ts init",
+    `run install ${createInstallList(options).join(" ")}`,
+    "run init",
   ];
   for (const cmd of executeList) await execute(cmd);
 }

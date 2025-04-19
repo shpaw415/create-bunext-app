@@ -4,7 +4,6 @@
   "bin": {
     "create-bunext-app": "src/index.ts"
   },
-  "main": "src/index.ts",
   "files": [
     "src"
   ],
@@ -31,6 +30,8 @@
     "bun": ">=1.1.0"
   },
   "scripts": {
-    "prepare": "bun src/index.ts"
+    "prepare": "bun src/index.ts",
+    "install": "bun install",
+    "init": "bun @bunpmjs/bunext/bin/index.ts init"
   }
 }
