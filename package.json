@@ -2,7 +2,7 @@
   "name": "create-bunext-app",
   "version": "1.0.0",
   "bin": {
-    "create-mon-app": "./index.ts"
+    "create-bunext-app": "./index.ts"
   },
   "type": "module",
   "description": "Create Bunext App",
