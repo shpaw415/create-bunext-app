@@ -7,10 +7,9 @@ type Options = {
   tailwind: boolean;
 };
 
-function execute(cmd: string, cwd: string) {
+function execute(cmd: string) {
   return Bun.spawnSync({
     cmd: ["bun", ...cmd.split(" ")],
-    cwd,
     stdout: "inherit",
     stderr: "inherit",
   });
@@ -18,7 +17,7 @@ function execute(cmd: string, cwd: string) {
 
 function createInstallList(options: Options) {
   const { tailwind } = options;
-  const list = ["@bunpmjs/bunext", "@bunpmjs/bunext/bin/index.ts"];
+  const list = ["@bunpmjs/bunext"];
   if (tailwind) {
     list.push("tailwindcss", "@tailwindcss/cli");
   }
@@ -44,16 +43,11 @@ function InstallBunext(options: Options) {
     `install ${createInstallList(options).join(" ")}`,
     "@bunpmjs/bunext/bin/index.ts init",
   ];
-  const { name } = options;
-
-  for (const cmd of executeList) {
-    execute(cmd, name);
-  }
+  for (const cmd of executeList) execute(cmd);
 }
 
 async function Main() {
   const options = await GetOptionsFromUser();
-  mkdirSync(options.name, { recursive: true });
   console.log(`Creating project ${options.name}...`);
 
   InstallBunext(options);
