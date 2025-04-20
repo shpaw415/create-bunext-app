@@ -4,12 +4,8 @@ type InitType = {
 
 export function CreateServerConfig({ tailwind }: InitType) {
   return `
-import type { ServerConfig } from "@bunpmjs/bunext/internal/types.ts";
-${
-  tailwind
-    ? `import Tailwind from "@bunpmjs/bunext/external-plugins/tailwind.ts"`
-    : ""
-};
+import type { ServerConfig } from "bunext-js/internal/types.ts";
+${tailwind ? `import TailwindPlugin from "tailwind-bunext-plugin";` : ""};
 const Config: ServerConfig = {
   HTTPServer: {
     port: 3010,
@@ -28,7 +24,7 @@ const Config: ServerConfig = {
   router: {
     dynamicPaths: [],
   },
-  bunext_plugins: [${tailwind ? "Tailwind" : ""}],
+  bunext_plugins: [${tailwind ? "TailwindPlugin" : ""}],
 };
 
 export default Config;

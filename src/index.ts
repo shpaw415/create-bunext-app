@@ -2,8 +2,7 @@
 import { input, confirm } from "@inquirer/prompts";
 import { CreateServerConfig } from "./serverConfig";
 import { mkdirSync } from "node:fs";
-import { normalize } from "../../bunext/features/utils/index";
-import { join } from "node:path";
+import { join, normalize } from "node:path";
 
 type Options = {
   name: string;
@@ -21,9 +20,9 @@ function execute(cmd: string, name: string) {
 
 function createInstallList(options: Options) {
   const { tailwind } = options;
-  const list = ["@bunpmjs/bunext"];
+  const list = ["bunext-js"];
   if (tailwind) {
-    list.push("tailwindcss", "@tailwindcss/cli");
+    list.push("tailwind-bunext-plugin");
   }
   return list;
 }
@@ -44,7 +43,7 @@ async function GetOptionsFromUser(): Promise<Options> {
 async function InstallBunext(options: Options) {
   const executeList = [
     `install ${createInstallList(options).join(" ")}`,
-    "@bunpmjs/bunext/bin/index.ts init",
+    "node_modules/bunext-js/bin/index.ts init",
   ];
   for (const cmd of executeList) execute(cmd, options.name);
 }
